@@ -29,6 +29,7 @@ module.exports.Signup = async (req, res) => {
             })
 
         const OTP = otpGenerator.generate(4, { digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+        console.log(OTP)
         // const mailOptions = {
         //     from: process.env.AUTH_EMAIL,
         //     to: req.body.email,

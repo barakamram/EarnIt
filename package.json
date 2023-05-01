@@ -4,8 +4,7 @@
   "description": "Node app that connects to MongoDB",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "Barak Amram",
   "license": "MIT",

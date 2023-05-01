@@ -291,7 +291,7 @@ module.exports.DeleteTask = async (req, res) => {
 }
 module.exports.GetTask = async (req, res) => {
     try {
-        const existUser = await User.find({ username: req.body.username });
+        const existUser = await User.findOne({ username: req.body.username });
         if (!existUser.length ) {
             return res.json({
                 status: 'FAILED',

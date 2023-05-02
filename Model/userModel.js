@@ -18,7 +18,7 @@ const userSchema = Schema({
     },
     children: [{
         name: String,
-        // avatar: String,
+        avatar: String,
         totalscore: Number,
     }],
     task: [{

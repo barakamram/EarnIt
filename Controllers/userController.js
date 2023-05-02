@@ -181,7 +181,7 @@ module.exports.DeleteChild = async (req, res) => {
 }
 module.exports.GetChild = async (req, res) => {
     try {
-        const existUser = await User.find({ username: req.body.username });
+        const existUser = await User.find({ username: req.query.username });
         if (!existUser.length ) {
             return res.json({
                 status: 'FAILED',
@@ -292,7 +292,7 @@ module.exports.DeleteTask = async (req, res) => {
 }
 module.exports.GetTask = async (req, res) => {
     try {
-        const existUser = await User.find({ username: req.body.username });
+        const existUser = await User.find({ username: req.query.username });
         if (!existUser.length ) {
             return res.json({
                 status: 'FAILED',
@@ -310,7 +310,7 @@ module.exports.GetTask = async (req, res) => {
 }
 module.exports.GetChildTask = async (req, res) => {
     try {
-        const existUser = await User.find({ username: req.body.username });
+        const existUser = await User.find({ username: req.query.username });
         if (!existUser.length ) {
             return res.json({
                 status: 'FAILED',
@@ -396,7 +396,7 @@ module.exports.TaskCompleted = async (req, res) => {
 }
 module.exports.GetCompletedTask = async (req, res) => {
     try {
-        const existUser = await User.find({ username: req.body.username });
+        const existUser = await User.find({ username: req.query.username });
         if (!existUser.length ) {
             return res.json({
                 status: 'FAILED',
@@ -522,7 +522,7 @@ module.exports.DeletePrize = async (req, res) => {
 }
 module.exports.GetPrize = async (req, res) => {
     try {
-        const existUser = await User.find({ username: req.body.username });
+        const existUser = await User.find({ username: req.query.username });
         if (!existUser.length ) {
             return res.json({
                 status: 'FAILED',

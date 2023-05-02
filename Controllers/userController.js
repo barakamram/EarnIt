@@ -88,6 +88,7 @@ module.exports.VerifyOtp = async (req, res) => {
 module.exports.Signin = async (req, res) => {
     try {
         const existUser = await User.find({ username: req.body.username });
+
         const existEmail = await User.find({ email: req.body.username });
         if (!existUser.length  && !existEmail.length) {
             return res.json({
@@ -97,7 +98,7 @@ module.exports.Signin = async (req, res) => {
         } else {
             let user 
             if (existUser.length) user = existUser;
-            else user = existEmail;
+            else user = existEmail;           
            const passwordMatch = await bcrypt.compare(req.body.password, user[0].password);
             if(!passwordMatch) {
                 return res.json({
@@ -108,7 +109,7 @@ module.exports.Signin = async (req, res) => {
                 return res.json({
                     status: 'SUCCESS',
                     message: 'User Login Successfully',
-                    data: user 
+                    data: user, 
                 })
             }
         }
@@ -144,7 +145,7 @@ module.exports.AddChild = async (req, res) => {
             {username: req.body.username},
             {$push: {children: [{
                 name: req.body.name,
-                // avatar: req.body.avatar,
+                avatar: req.body.avatar,
                 totalscore: req.body.totalscore? req.body.totalscore: 0,
             }], }
         })
@@ -210,7 +211,7 @@ module.exports.EditChild = async (req, res) => {
                 children: {$elemMatch: { name: req.body.name }}
             }, {"$set" : { 
                 "children.$.name" : req.body.newName ? req.body.newName : req.body.name, 
-                // "task.$.avatar" : req.body.newAvatar ? req.body.newAvatar : req.body.avatar, 
+                "task.$.avatar" : req.body.newAvatar ? req.body.newAvatar : req.body.avatar, 
                 "children.$.totalscore" : req.body.totalscore
             }}); 
             // const editTasks =  await User.updateMany({

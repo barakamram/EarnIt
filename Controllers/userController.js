@@ -320,7 +320,7 @@ module.exports.GetChildTask = async (req, res) => {
             const list = existUser[0].task
             let childlist = []
             for (let i = 0; i < list.length; i++) {
-                if (list[i].child == req.body.child)
+                if (list[i].child == req.query.child)
                     childlist.push({
                         child: list[i].child,
                         title: list[i].title,

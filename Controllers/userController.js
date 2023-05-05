@@ -326,6 +326,7 @@ module.exports.GetChildTask = async (req, res) => {
                         title: list[i].title,
                         score: list[i].score,
                         completed: list[i].completed,
+                        _id: list[i]._id,
                     })
             }
             return res.json({

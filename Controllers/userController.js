@@ -170,21 +170,16 @@ module.exports.DeleteChild = async (req, res) => {
                 {username: req.body.username},
                 {'$pull': {'children': { 'name': req.body.name }}
             })
-            return res.json({
-                status: 'SUCCESS',
-                message: 'Child removed Successfully',
-            })
+           
             const deleteTasks =  await User.updateOne({
-                username: req.body.username,
-                // 'task.$[].child': req.body.name 
-            },{ $pull:  { 
-                "task.$[orderItem].child" : req.body.name, 
-                }
-            },{
-                arrayFilters: [{
-                    'orderItem.child': req.body.name,
-            }]
-            }); 
+                username: req.body.username},
+                {'$pull': { 'task': { 'child': req.body.name }}
+            
+        }); 
+        return res.json({
+            status: 'SUCCESS',
+            message: 'Child removed Successfully',
+        })
         }
     } catch (error) {
         throw (error)

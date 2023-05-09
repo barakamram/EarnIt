@@ -174,6 +174,17 @@ module.exports.DeleteChild = async (req, res) => {
                 status: 'SUCCESS',
                 message: 'Child removed Successfully',
             })
+            const deleteTasks =  await User.updateOne({
+                username: req.body.username,
+                // 'task.$[].child': req.body.name 
+            },{ $pull:  { 
+                "task.$[orderItem].child" : req.body.name, 
+                }
+            },{
+                arrayFilters: [{
+                    'orderItem.child': req.body.name,
+            }]
+            }); 
         }
     } catch (error) {
         throw (error)
@@ -211,23 +222,30 @@ module.exports.EditChild = async (req, res) => {
                 children: {$elemMatch: { name: req.body.name }}
             }, {"$set" : { 
                 "children.$.name" : req.body.newName ? req.body.newName : req.body.name, 
-                "task.$.avatar" : req.body.newAvatar ? req.body.newAvatar : req.body.avatar, 
+                "children.$.avatar" : req.body.newAvatar ? req.body.newAvatar : req.body.avatar, 
                 "children.$.totalscore" : req.body.totalscore
             }}); 
-            // const editTasks =  await User.updateMany({
-            //     username: req.body.username,
-            //     task:  {$elemMatch: { child: req.body.name }}
-            // }, { $set: { "task.$.child" : req.body.newName ? req.body.newName : req.body.name, 
-            // }}); 
+            const editTasks =  await User.updateOne({
+                username: req.body.username,
+                // 'task.$[].child': req.body.name 
+            },{ $set:  { 
+                "task.$[orderItem].child" : req.body.newName ? req.body.newName : req.body.name, 
+                }
+            },{
+                arrayFilters: [{
+                    'orderItem.child': req.body.name,
+            }]
+            }); 
+            return res.json({
+                status: 'SUCCESS',
+                message: 'Child updated Successfully',
+                data: editTasks[0]
+            })   
              
         }
         
 
-                return res.json({
-                    status: 'SUCCESS',
-                    message: 'Child updated Successfully',
-                    // data: tasks[0].task
-                })    
+                 
     } catch (error) {
         throw (error)
     }

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Signup, VerifyOtp, Signin, 
+const { Signup, VerifyOtp, Signin, ParentCode, AddParentCode,
         AddChild, DeleteChild, GetChild, EditChild, 
         AddTask, DeleteTask, GetTask,GetChildTask, EditTask, 
         TaskCompleted, GetCompletedTask, ConfirmCompletedTask,
@@ -9,6 +9,9 @@ const { Signup, VerifyOtp, Signin,
 router.route('/signup').post(Signup)
 router.route('/verify').post(VerifyOtp)
 router.route('/signin').post(Signin)
+
+router.route('/parentcode').post(ParentCode)
+router.route('/addparentcode').post(AddParentCode)
 
 router.route('/user/addChild').post(AddChild)
 router.route('/user/deleteChild').post(DeleteChild)

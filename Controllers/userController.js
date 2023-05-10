@@ -119,6 +119,62 @@ module.exports.Signin = async (req, res) => {
 }
 
 
+module.exports.ParentCode = async (req, res) => {
+    try {
+        const existUser = await User.find({ username: req.body.username });
+        if (!existUser.length ) 
+            return res.json({
+                status: 'FAILED',
+                message: 'Username are not exists',
+            })
+            const codeMatch = await bcrypt.compare(req.body.code, existUser[0].code);
+            if(!codeMatch) {
+                return res.json({
+                    status: 'FAILED',
+                    message: 'code incorrect',
+                })
+            } else {
+                return res.json({
+                    status: 'SUCCESS',
+                    message: 'Correct Parent Code',
+                    // data: user, 
+                })
+            }
+    
+    } catch (error) {
+        throw (error)
+    }
+}
+module.exports.AddParentCode = async (req, res) => {
+    try {
+        const existUser = await User.find({ username: req.body.username });
+        if (!existUser.length ) {
+            return res.json({
+                status: 'FAILED',
+                message: 'Username are not exists',
+            })
+        } else {
+            const salt = await bcrypt.genSalt(10);
+            const code = await bcrypt.hash(req.body.code , salt);
+            console.log(req.body.code, code)
+            const addCode = await User.updateOne({ 
+                username: req.body.username,
+            }, {"$set" : { 
+                "code" : code 
+                
+            }}); 
+        return res.json({
+            status: 'SUCCESS',
+            message: 'Code Added Successfully',
+            data: addCode[0],
+        })
+        }
+    } catch (error) {
+        throw (error)
+    }
+}
+
+
 /**
  * 
  * @param {*} req 

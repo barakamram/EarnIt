@@ -16,6 +16,9 @@ const userSchema = Schema({
         type: String,
         required: true,
     },
+    code: {
+        type: String,
+    },
     children: [{
         name: String,
         avatar: String,
@@ -32,7 +35,7 @@ const userSchema = Schema({
     prize: [{
         title: String,
         cost: Number,
-    }],
+    }], 
 }, {timestamps: true});
 
 
